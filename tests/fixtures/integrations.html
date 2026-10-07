@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="fr">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Vérification locale des intégrations</title><link rel="stylesheet" href="/style.css"><style>main{max-width:880px;margin:40px auto;padding:24px}h1{font-size:42px;margin-bottom:16px}.test-note{margin-bottom:28px}.faq-grid{margin-top:36px;grid-template-columns:repeat(2,minmax(0,1fr))}@media(max-width:639px){.faq-grid{grid-template-columns:1fr}}.fixture-actions{margin:36px 0;display:flex;gap:15px}.fixture-actions button{padding:12px}.fixture-result{margin:24px 0}</style></head>
+<body><main>
+<h1>Vérification locale</h1>
+<p class="test-note">Vidéo publique de la documentation Wistia. Aucun contenu de démonstration n’est présent dans la landing compilée.</p>
+<div class="media-frame"><div class="media-slot" data-media="demo"><img class="media-image" src="/assets/mediterranean-ascent.webp" alt="Décor"/><div class="media-gradient"></div><span class="media-status">VIDÉO À VENIR</span><div class="media-caption"><h3>Lecteur de test</h3></div><span class="media-symbol"></span></div></div>
+<div class="faq-grid">
+<article class="faq-card"><div class="faq-card-heading"><span class="faq-number">01</span><h3>Réponse vidéo de test 1</h3></div><div class="media-slot faq-media" data-media="faq-demo-1" aria-label="Réponse vidéo de test 1"><img class="media-image" src="/assets/laelius-mediterranee.jpg" alt=""/><div class="media-gradient"></div><span class="media-status">VIDÉO À VENIR</span></div></article>
+<article class="faq-card"><div class="faq-card-heading"><span class="faq-number">02</span><h3>Réponse vidéo de test 2</h3></div><div class="media-slot faq-media" data-media="faq-demo-2" aria-label="Réponse vidéo de test 2"><img class="media-image" src="/assets/laelius-mediterranee.jpg" alt=""/><div class="media-gradient"></div><span class="media-status">VIDÉO À VENIR</span></div></article>
+</div><p class="test-note">Lancer la seconde réponse retire le premier lecteur et restaure sa couverture.</p>
+<div class="fixture-result" data-invalid-slot>Source invalide : ce texte doit rester intact.</div>
+<div class="fixture-actions"><button type="button" id="test-iclosed">Tester l’indisponibilité iClosed</button><button type="button" id="test-empty">Vérifier la configuration vide</button></div>
+<p id="test-result" role="status"></p>
+<section class="booking-confirmation" data-iclosed-confirmation hidden><div data-iclosed-mount></div><p class="booking-status" data-iclosed-status role="status"></p><button type="button" class="text-link booking-retry" data-iclosed-retry hidden>Réessayer</button></section>
+</main><script type="module">
+import { prepareWistia } from '/integrations/wistia.js';
+import { prepareIClosed } from '/integrations/iclosed.js';
+const demo = {src:'g5pnf59ala',title:'Vidéo publique de démonstration Wistia'};
+for (const slot of document.querySelectorAll('[data-media]')) prepareWistia(slot,{...demo,title:slot.getAttribute('aria-label') || demo.title},{doNotTrack:true,playerColor:'1d6586'});
+prepareWistia(document.querySelector('[data-invalid-slot]'),{src:'invalid-source'},{});
+prepareIClosed({confirmationWidgetUrl:''});
+document.querySelector('#test-empty').onclick=()=>{
+ document.querySelector('#test-result').textContent = document.querySelector('[data-iclosed-confirmation]').hidden ? 'Configuration vide : aucun widget visible.' : 'Widget présent.';
+};
+document.querySelector('#test-iclosed').onclick=()=>{
+ // Developer QA only, after blocking the official vendor script in DevTools.
+ // Not a real booking or a real call-details endpoint.
+ prepareIClosed({confirmationWidgetUrl:'https://app.iclosed.io/test-fixture-unavailable'});
+};
+</script></body></html>
