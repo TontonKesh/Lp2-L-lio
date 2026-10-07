@@ -1,0 +1,40 @@
+:root {
+  --motion-ease:cubic-bezier(.22,1,.36,1);
+  --motion-micro-ease:cubic-bezier(.2,.8,.2,1);
+  --motion-micro:180ms;
+  --motion-small:240ms;
+}
+/* Only JS-enhanced, below-the-fold elements wait for their first entrance. */
+.reveal[data-motion-state=waiting]{opacity:0}
+.header-contact,.section-arrow{transition:background var(--motion-micro) var(--motion-micro-ease),border-color var(--motion-micro) var(--motion-micro-ease)}
+.copy-message .icon,.header-contact .icon,.section-arrow .icon{transition:transform var(--motion-micro) var(--motion-micro-ease)}
+.menu-toggle>span{transition:transform var(--motion-small) var(--motion-ease)}
+.checkmark{transition:background var(--motion-micro) var(--motion-micro-ease),border-color var(--motion-micro) var(--motion-micro-ease)}
+.checkmark .icon{transition:opacity var(--motion-micro) var(--motion-micro-ease),transform var(--motion-micro) var(--motion-ease)}
+@media(hover:hover) and (pointer:fine){
+  .copy-message:hover .icon{transform:translateX(3px)}
+  .header-contact:hover{background:#1d65860b}
+  .header-contact:hover .icon,.section-arrow:hover .icon{transform:translateY(2px)}
+}
+/* Continuous motion is decorative and desktop-only; no JS scroll loop or pinning. */
+@supports (animation-timeline:view()) and (animation-range:entry 0% cover 45%){
+  @media(min-width:900px) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+    .section-kicker{position:relative;border-bottom-color:transparent;view-timeline-name:--section-line}
+    .section-kicker:after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;background:var(--line);transform-origin:left;animation:section-line 1ms linear both;animation-timeline:--section-line;animation-range:entry 0% cover 35%}
+    [data-scroll-visual]{animation:landscape-arrive 1ms linear both;animation-timeline:view();animation-range:entry 0% cover 45%}
+    .hero{view-timeline-name:--hero-exit}
+    .hero-art{animation:sculpture-drift 1ms linear both;animation-timeline:--hero-exit;animation-range:exit 0% exit 100%}
+  }
+}
+@keyframes section-line{from{transform:scaleX(.12)}to{transform:scaleX(1)}}
+@keyframes landscape-arrive{from{transform:translateY(12px) scale(.98)}to{transform:translateY(0) scale(1)}}
+@keyframes sculpture-drift{from{transform:translateY(0)}to{transform:translateY(20px)}}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*:before,*:after{animation:none!important;transition:none!important}
+  .reveal[data-motion-state=waiting]{opacity:1;transform:none}
+  .hero-art,.visual-stage{transform:none!important}
+}
+@media(prefers-reduced-motion:no-preference){
+  .media-launch .media-symbol{transition:background var(--motion-micro),color var(--motion-micro),transform var(--motion-micro)}
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "installCommand": "npm ci",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/", "destination": "/call-booke", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/call-booke", "destination": "/index.html" }
+  ]
+}
