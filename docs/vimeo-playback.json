@@ -1,0 +1,51 @@
+[
+  {
+    "slot": "methode",
+    "currentTime": 8.511033,
+    "duration": 549.2000180000001,
+    "paused": false,
+    "readyState": 4
+  },
+  {
+    "slot": "faq-1",
+    "currentTime": 24.828608,
+    "duration": 26.218666,
+    "paused": false,
+    "readyState": 4
+  },
+  {
+    "slot": "faq-2",
+    "currentTime": 5.832432,
+    "duration": 38.200001,
+    "paused": true,
+    "readyState": 4
+  },
+  {
+    "slot": "faq-3",
+    "currentTime": 5.441526,
+    "duration": 18.901333,
+    "paused": false,
+    "readyState": 4
+  },
+  {
+    "slot": "faq-4",
+    "currentTime": 6.475295,
+    "duration": 27.233334,
+    "paused": false,
+    "readyState": 4
+  },
+  {
+    "slot": "faq-5",
+    "currentTime": 4.104517,
+    "duration": 25.813333,
+    "paused": false,
+    "readyState": 4
+  },
+  {
+    "slot": "faq-6",
+    "currentTime": 3.440522,
+    "duration": 24.066667,
+    "paused": false,
+    "readyState": 4
+  }
+]
